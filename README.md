@@ -1,120 +1,150 @@
+<div align="center">
+
 # Poképedia Explorer
 
-Um PWA feito com React, TypeScript e Vite para explorar Pokémon, pesquisar por nome/número, filtrar por geração, tipo e habilidade, comparar espécies, abrir fichas detalhadas, salvar favoritos e acompanhar conquistas da jornada.
+### Sua próxima descoberta Pokémon começa aqui.
 
-## Requisitos
+Explore espécies, compare atributos, monte equipes e acompanhe sua jornada em uma Pokédex moderna, responsiva e instalável.
 
-- Node.js LTS instalado (recomendado: versão 20 ou 22 LTS).
-- npm (vem junto com o Node.js).
-- Internet para consultar a PokéAPI e carregar imagens na primeira utilização.
+<p>
+  <a href="https://poke-pedia-explorer.vercel.app/"><strong>🚀 Abrir o Poképedia Explorer</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/carlosgabriell/poke-pedia-explorer">Ver repositório</a>
+</p>
 
-## Instalação
+[![CI](https://github.com/carlosgabriell/poke-pedia-explorer/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/carlosgabriell/poke-pedia-explorer/actions/workflows/ci.yml)
+[![React](https://img.shields.io/badge/React-18-149eca?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white)](https://vite.dev/)
+[![PWA](https://img.shields.io/badge/PWA-instalável-5a9b45)](https://web.dev/explore/progressive-web-apps)
 
-1. Clone o repositório ou abra a pasta do projeto no VS Code.
-2. No terminal, confirme que está dentro da pasta do projeto.
-3. Execute:
+</div>
 
-   ```bash
-   npm install
-   npm run dev
-   ```
+---
 
-5. O terminal mostrará um endereço local, normalmente `http://localhost:5173`. Abra esse endereço no navegador.
+## ✨ O que é
 
-## Criar uma versão de produção
+O **Poképedia Explorer** é um projeto independente para quem gosta de explorar o universo Pokémon. Mais do que uma lista de espécies, ele reúne uma Pokédex pesquisável, fichas detalhadas, ferramentas de batalha, criação de equipes e atividades de descoberta — em uma experiência que funciona em computadores e celulares.
+
+**A aplicação está publicada e pronta para compartilhar:**
+👉 **[poke-pedia-explorer.vercel.app](https://poke-pedia-explorer.vercel.app/)**
+
+## 🧭 Explore
+
+| Área | O que você pode fazer |
+| --- | --- |
+| **Pokédex** | Pesquisar por nome ou número, combinar filtros de geração, tipos e habilidades, ordenar resultados e consultar fichas. |
+| **Ficha Pokémon** | Ver tipos, habilidades, medidas, descrição, atributos-base, formas e linhas de evolução com condições disponíveis na PokéAPI. |
+| **Comparação** | Comparar lado a lado até três Pokémon, incluindo tipos, habilidades, atributos e totais. |
+| **Calculadora de tipos** | Consultar efetividade entre tipos, incluindo combinações de dois tipos defensores. |
+| **Montador de equipes** | Encontrar Pokémon pela busca, montar equipes de até seis integrantes e analisar fraquezas, resistências, imunidades e cobertura por STAB. |
+| **Backup e compartilhamento** | Exportar ou importar equipes em JSON validado e criar um cartão PNG para baixar ou compartilhar pelo dispositivo. |
+| **Minha Jornada** | Acompanhar descobertas, estatísticas e conquistas guardadas neste navegador. |
+| **Quiz Pokémon** | Responder desafios sobre tipos e atributos-base, receber feedback e registrar resultados e recordes. |
+| **Pokémon em destaque** | Descobrir Pokémon populares em destaque e consultar o Pokémon do dia. |
+
+### Feito para o seu jeito de explorar
+
+- Temas **claro**, **escuro** e **seguir o dispositivo**.
+- Interface em **Português (Brasil)** ou **Inglês**, com opção de seguir o idioma do dispositivo.
+- Layout adaptável a diferentes tamanhos de tela, navegação por teclado, textos alternativos e respeito à preferência por movimento reduzido.
+- PWA instalável em navegadores compatíveis, com cache para recursos e dados já visitados.
+- Seleção de texto com a cor verde da identidade visual.
+
+## 🛠️ Tecnologias
+
+- **React 18** para a interface.
+- **TypeScript** para tipagem estática.
+- **Vite 6** para desenvolvimento e build.
+- **Vitest** para testes automatizados.
+- **vite-plugin-pwa / Workbox** para instalação e cache.
+- **PokéAPI** como fonte de dados Pokémon.
+- **GitHub Actions** para executar testes e build em pushes e pull requests.
+- **Vercel** para hospedagem da aplicação.
+
+## 🚀 Executar localmente
+
+### Requisitos
+
+- Node.js **20 ou superior** (LTS recomendado).
+- npm.
+- Conexão com a internet para consultar a PokéAPI e carregar dados e imagens ainda não armazenados.
+
+### Instalação
 
 ```bash
+git clone https://github.com/carlosgabriell/poke-pedia-explorer.git
+cd poke-pedia-explorer
+npm ci
+npm run dev
+```
+
+Abra o endereço informado pelo Vite no terminal — normalmente `http://localhost:5173`.
+
+### Testes e build de produção
+
+```bash
+npm test
 npm run build
 npm run preview
 ```
 
-Execute os testes automatizados com:
+O build de produção é gerado em `dist/`.
 
-```bash
-npm test
-```
+## 🔒 Privacidade e armazenamento
 
-Os arquivos finais ficam na pasta `dist/`. Para usar o PWA instalado em dispositivos, publique `dist/` em um serviço de hospedagem com HTTPS, por exemplo Vercel, Netlify ou GitHub Pages (ajuste `base` no Vite se publicar em subpasta).
+- O projeto não exige conta e não possui backend próprio.
+- Favoritos, equipe, preferências, descobertas, estatísticas e resultados do quiz ficam no **armazenamento local do navegador**; não são sincronizados entre dispositivos.
+- As equipes podem ser exportadas como arquivo JSON para backup. O cartão de equipe é gerado no próprio navegador.
+- Para carregar espécies, descrições e imagens, o navegador faz requisições à PokéAPI e aos serviços de imagem usados por ela.
+- O app não requer chaves de API ou segredos para executar e não inclui integração com IA.
+- Limpar os dados do site no navegador também remove o progresso local; exporte as equipes antes se quiser guardá-las.
 
-## Publicar no GitHub e Vercel
+## 📚 Dados e limites conhecidos
 
-O repositório inclui um fluxo GitHub Actions que executa `npm ci`, `npm test` e `npm run build` em cada push e pull request. O `.gitignore` exclui dependências, arquivos de build, configuração local da Vercel e variáveis de ambiente locais.
+- Os dados são fornecidos pela [PokéAPI](https://pokeapi.co/); disponibilidade, traduções e cobertura dependem dessa fonte.
+- Descrições em português podem não existir para todas as espécies; nesse caso, a aplicação pode usar o texto disponível em inglês.
+- Estatísticas, habilidades, formas e mecânicas podem variar conforme o jogo. As fichas apresentam dados gerais disponibilizados pela API, não uma simulação de um jogo específico.
+- A calculadora usa a tabela padrão de efetividade da Geração VI em diante. Ela não simula dano, golpes, habilidades, clima ou regras específicas de formatos.
+- A análise de equipe ajuda a visualizar tipos e cobertura; não determina se uma equipe é competitivamente ideal.
+- O cache permite reutilizar alguns recursos já consultados, mas o primeiro acesso e dados ainda não carregados precisam de conexão.
+- Este é um projeto de fã, não oficial e sem afiliação com Nintendo, Game Freak ou The Pokémon Company. Pokémon e seus elementos pertencem aos respectivos titulares.
 
-Para conectar a Vercel, publique este projeto em um repositório GitHub e importe-o na Vercel. O framework pode ser detectado como Vite; confirme o comando de build `npm run build` e a pasta de saída `dist`.
-
-## Instalar como aplicativo
-
-- **Chrome/Edge no computador:** abra a versão hospedada em HTTPS e use o ícone de instalação na barra de endereço ou o botão “Instalar app”.
-- **Android:** abra o site no Chrome, menu ⋮ e “Instalar app”/“Adicionar à tela inicial”.
-- **iPhone/iPad:** abra no Safari, toque em Compartilhar e “Adicionar à Tela de Início”.
-
-O modo de instalação depende do navegador e da hospedagem. Em desenvolvimento local, o service worker/PWA é habilitado pelo Vite PWA para testes.
-
-## Funcionalidades já implementadas
-
-- Pokédex consultando a PokéAPI.
-- Busca por nome ou número.
-- Filtros combináveis de geração, dois tipos e habilidade, com ordenação por número ou nome.
-- Fichas com imagem, tipos, habilidades, medidas, descrição, experiência-base, felicidade, rendimento de esforço, estatísticas e formas listadas pela PokéAPI.
-- Linhas evolutivas navegáveis com condições conhecidas de evolução.
-- Favoritos persistidos no navegador.
-- Descobertas e painel “Minha jornada”.
-- Grade paginada e carregamento sob demanda dos detalhes para reduzir requisições e tempo de espera.
-- Comparação lado a lado de até três Pokémon, incluindo habilidades, atributos-base, total de atributos e destaque do maior valor por atributo.
-- Calculadora de efetividade para tipos simples e duplos.
-- Montador de equipes de até seis Pokémon, salvo localmente, com resumo de fraquezas, resistências, imunidades e cobertura ofensiva por STAB.
-- Busca de Pokémon por nome/número para adicionar à equipe diretamente no montador ou na ficha; backup JSON validado para exportar/importar, além de cartão PNG compartilhável ou baixável.
-- Quiz de cinco perguntas verificáveis sobre tipos e atributos-base, com feedback imediato, pontuação, recordes e conquistas integradas à jornada.
-- Pokémon do dia escolhido de forma estável pela data local, com descrição e acesso à ficha.
-- Filtro por habilidade e tipo.
-- Preferências de tema claro/escuro e idioma português/inglês, com opção de seguir o dispositivo.
-- Conquistas locais e métricas persistentes de perfis, tipos, gerações, comparações, linhas evolutivas e resultados do quiz.
-- Pokémon em destaque alternados automaticamente.
-- Layout responsivo, animações com suporte à preferência de movimento reduzido e destaque de seleção verde.
-- Configuração de PWA e cache básico de arquivos/API/imagens.
-
-## Limitações conhecidas da primeira versão
-
-- As descrições em português dependem da disponibilidade na PokéAPI; se não houver, usa-se inglês.
-- A calculadora de tipos usa a tabela padrão da Geração VI em diante; não calcula STAB, habilidades, clima ou regras específicas de jogos.
-- Os dados de espécies são gerais. Estatísticas, habilidades, formas e mecânicas podem variar entre jogos. Nomes próprios seguem o padrão usado pela PokéAPI e nem todos possuem tradução.
-- A PokéAPI lista formas e condições de evolução disponíveis, mas nem toda variação ou detalhe específico de jogo está representado. Curiosidades editoriais não são inventadas quando não existe uma fonte de dados estruturada.
-- A lista por geração usa intervalos aproximados de números de Pokédex nacional; revisaremos exceções e formas especiais em uma próxima etapa.
-- Filtros de tipo e habilidade usam os dados da PokéAPI e precisam de conexão na primeira consulta.
-- O progresso é salvo no armazenamento local do navegador; ainda não existe login nem sincronização entre dispositivos.
-- O montador de equipes também salva apenas neste navegador; sua análise considera a tabela padrão de tipos da Geração VI em diante e não substitui uma análise de golpes, habilidades ou formato de batalha.
-- Backups de equipes usam o formato versionado Poképedia Explorer e aceitam somente Pokémon válidos da PokéAPI; a imagem compartilhável é renderizada no navegador e requer acesso às imagens oficiais da PokéAPI.
-- O quiz gera perguntas apenas com dados estruturados de tipos e atributos-base da PokéAPI; não afirma fatos editoriais nem usa perguntas de curiosidades sem fonte.
-- Os perfis consultados anteriormente continuam no histórico existente; tipos, gerações e comparações são contabilizados localmente enquanto o app os registra e não são sincronizados com outros dispositivos.
-- O cache offline ajuda com arquivos e respostas já acessadas, mas a primeira visita exige internet. Não é uma enciclopédia totalmente offline.
-- O projeto é de fã, não oficial, e não é afiliado à Nintendo, Game Freak ou The Pokémon Company.
-
-## Estrutura
+## 🗂️ Organização do projeto
 
 ```text
-pokemon-explorer/
-├── public/
-│   ├── pwa-192.svg
-│   └── pwa-512.svg
+.
+├── .github/workflows/ci.yml   # Testes e build automatizados
+├── public/                    # Ícones do PWA
 ├── src/
-│   ├── api.ts
-│   ├── i18n.ts
-│   ├── typeEffectiveness.ts
-│   ├── App.tsx
-│   ├── main.tsx
-│   ├── styles.css
-│   └── types.ts
+│   ├── App.tsx                # Aplicação e fluxos principais
+│   ├── api.ts                 # Integração com a PokéAPI
+│   ├── i18n.ts                # Textos em português e inglês
+│   ├── quiz.ts                # Lógica do quiz
+│   ├── teamAnalysis.ts        # Análise de equipes
+│   ├── teamBackup.ts          # Validação e backup JSON
+│   ├── teamSelection.ts       # Busca para montar equipes
+│   ├── teamShareImage.ts      # Cartão de equipe em imagem
+│   ├── typeEffectiveness.ts   # Efetividade de tipos
+│   └── *.test.ts              # Testes unitários
 ├── index.html
 ├── package.json
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
+└── vite.config.ts             # Build, PWA e cache
 ```
 
-## Fonte de dados
+## 🤝 Contribuições
 
-- PokéAPI: https://pokeapi.co/
-- Documentação: https://pokeapi.co/docs/v2
+Sugestões e relatos de problemas são bem-vindos. Abra uma [issue](https://github.com/carlosgabriell/poke-pedia-explorer/issues) descrevendo o comportamento esperado, os passos para reproduzir e, se possível, capturas de tela sem dados pessoais.
 
-Os nomes, personagens e imagens Pokémon pertencem aos respectivos titulares. Este projeto é uma iniciativa pessoal/fã.
+## 🙌 Créditos
+
+- Dados de espécies: [PokéAPI](https://pokeapi.co/) · [documentação](https://pokeapi.co/docs/v2)
+- Pokémon, nomes e imagens: © Nintendo, Game Freak e The Pokémon Company, e demais titulares.
+
+<div align="center">
+
+**Feito para explorar, comparar e montar sua próxima equipe.**
+
+[Abrir Poképedia Explorer](https://poke-pedia-explorer.vercel.app/) · [GitHub](https://github.com/carlosgabriell/poke-pedia-explorer)
+
+</div>
