@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import handler from "./assistant";
+import handler from "../api/assistant";
 
 function createResponse() {
   let statusCode = 200;
@@ -105,6 +105,6 @@ describe("assistant serverless handler", () => {
     const requestBody = JSON.parse(options.body as string) as {
       messages: { content: string }[];
     };
-    expect(requestBody.messages.at(-1)?.content).toContain('"name":"pikachu"');
+    expect(requestBody.messages[requestBody.messages.length - 1]?.content).toContain('"name":"pikachu"');
   });
 });
