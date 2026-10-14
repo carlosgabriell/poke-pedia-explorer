@@ -34,8 +34,9 @@ import type { QuizQuestion } from "./quiz";
 import { createTeamBackup, parseTeamBackup } from "./teamBackup";
 import { createTeamShareImage } from "./teamShareImage";
 import { filterTeamCandidates } from "./teamSelection";
+import { BattlePanel } from "./BattlePanel";
 
-type Tab = "dex" | "journey" | "favorites" | "calculator" | "team" | "quiz";
+type Tab = "dex" | "journey" | "favorites" | "calculator" | "team" | "quiz" | "battle";
 type LocalePreference = "device" | "pt-BR" | "en";
 type ThemePreference = "device" | "light" | "dark";
 type JourneyMetrics = {
@@ -294,7 +295,9 @@ function EvolutionBranch({
 }
 
 function App() {
-  const [tab, setTab] = useState<Tab>("dex");
+  const [tab, setTab] = useState<Tab>(() =>
+    new URLSearchParams(window.location.search).has("battle") ? "battle" : "dex",
+  );
 
   const [search, setSearch] = useState("");
 
@@ -1364,6 +1367,13 @@ function App() {
           >
             ❖ <span>{copy(locale, "Quiz Pokémon", "Pokémon quiz")}</span>
           </button>
+          <button
+            aria-pressed={tab === "battle"}
+            className={tab === "battle" ? "active" : ""}
+            onClick={() => setTab("battle")}
+          >
+            ⚔ <span>{copy(locale, "Batalha", "Battle")}</span>
+          </button>
         </nav>
 
         {error && (
@@ -1505,6 +1515,8 @@ function App() {
               </div>
             )}
           </section>
+        ) : tab === "battle" ? (
+          <BattlePanel locale={locale} savedTeamNames={teamNames} />
         ) : tab === "quiz" ? (
           <section className="quiz-panel" aria-labelledby="quiz-title">
             <div className="journey-header quiz-header">

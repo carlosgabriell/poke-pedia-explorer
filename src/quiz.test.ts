@@ -24,6 +24,7 @@ function pokemonDetail(): PokemonDetail {
       { base_stat: 100, stat: { name: "speed" } },
     ],
     species: { name: "charizard", url: "" },
+    moves: [],
   };
 }
 

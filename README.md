@@ -39,6 +39,7 @@ O **Poképedia Explorer** é um projeto independente para quem gosta de explorar
 | **Calculadora de tipos** | Consultar efetividade entre tipos, incluindo combinações de dois tipos defensores. |
 | **Montador de equipes** | Encontrar Pokémon pela busca, montar equipes de até seis integrantes e analisar fraquezas, resistências, imunidades e cobertura por STAB. |
 | **Backup e compartilhamento** | Exportar ou importar equipes em JSON validado e criar um cartão PNG para baixar ou compartilhar pelo dispositivo. |
+| **Arena de batalha** | Combate clássico por turnos com campo lateral, sprites frente/costas, animações leves, golpes e HP. Treine contra a CPU ou crie salas 1v1 e 2v2 por link, com seleção de equipes, draft às cegas e relatório compartilhável. Sem itens. |
 | **Minha Jornada** | Acompanhar descobertas, estatísticas e conquistas guardadas neste navegador. |
 | **Quiz Pokémon** | Responder desafios sobre tipos e atributos-base, receber feedback e registrar resultados e recordes. |
 | **Pokémon em destaque** | Descobrir Pokémon populares em destaque e consultar o Pokémon do dia. |
@@ -59,6 +60,7 @@ O **Poképedia Explorer** é um projeto independente para quem gosta de explorar
 - **Vitest** para testes automatizados.
 - **vite-plugin-pwa / Workbox** para instalação e cache.
 - **PokéAPI** como fonte de dados Pokémon.
+- **Supabase Realtime** para presença, salas por link e sincronização das batalhas online.
 - **GitHub Actions** para executar testes e build em pushes e pull requests.
 - **Vercel** para hospedagem da aplicação.
 
@@ -76,6 +78,26 @@ O **Poképedia Explorer** é um projeto independente para quem gosta de explorar
 git clone https://github.com/carlosgabriell/poke-pedia-explorer.git
 cd poke-pedia-explorer
 npm ci
+```
+
+Para habilitar salas online:
+
+1. Crie um projeto no [dashboard do Supabase](https://supabase.com/dashboard).
+2. Nas configurações de API do projeto, copie a **Project URL** e a chave **anon/public**.
+3. Crie `.env.local` na raiz do projeto (use `.env.example` como modelo):
+
+```dotenv
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua-chave-anon-publica
+```
+
+Salas usam Supabase Realtime Presence/Broadcast em canais públicos e não precisam de tabelas ou migrations. Reinicie o Vite depois de alterar `.env.local`. Para publicar na Vercel, cadastre essas mesmas duas variáveis em **Project Settings → Environment Variables** e faça um novo deploy.
+
+> A anon/public key é destinada ao frontend; nunca exponha uma chave `service_role`. Salas são casuais, sem autenticação, persistência ou validação server-authoritative: o anfitrião controla a simulação e a partida termina se ele desconectar. Não use esse modelo para partidas ranqueadas ou dados sensíveis.
+
+Com as variáveis configuradas, execute:
+
+```bash
 npm run dev
 ```
 
@@ -93,11 +115,12 @@ O build de produção é gerado em `dist/`.
 
 ## 🔒 Privacidade e armazenamento
 
-- O projeto não exige conta e não possui backend próprio.
+- A Pokédex não exige conta. A arena usa Supabase Realtime apenas quando as variáveis são configuradas.
 - Favoritos, equipe, preferências, descobertas, estatísticas e resultados do quiz ficam no **armazenamento local do navegador**; não são sincronizados entre dispositivos.
 - As equipes podem ser exportadas como arquivo JSON para backup. O cartão de equipe é gerado no próprio navegador.
+- A arena oferece treino local contra CPU e salas casuais por link. O estado da partida online fica na memória do anfitrião: não há matchmaking, retomada após desconexões ou histórico persistente; se um participante sair durante a partida, a desconexão conta como desistência.
 - Para carregar espécies, descrições e imagens, o navegador faz requisições à PokéAPI e aos serviços de imagem usados por ela.
-- O app não requer chaves de API ou segredos para executar e não inclui integração com IA.
+- O app não requer chaves de API ou segredos para a Pokédex funcionar e não inclui integração com IA. Salas online usam somente a anon/public key do Supabase; nunca coloque uma chave `service_role` no frontend.
 - Limpar os dados do site no navegador também remove o progresso local; exporte as equipes antes se quiser guardá-las.
 
 ## 📚 Dados e limites conhecidos
@@ -118,6 +141,9 @@ O build de produção é gerado em `dist/`.
 ├── public/                    # Ícones do PWA
 ├── src/
 │   ├── App.tsx                # Aplicação e fluxos principais
+│   ├── BattlePanel.tsx        # Arena local e salas online
+│   ├── battleEngine.ts        # Regras e estado das batalhas
+│   ├── battleRooms.ts         # Supabase Realtime e presença das salas
 │   ├── api.ts                 # Integração com a PokéAPI
 │   ├── i18n.ts                # Textos em português e inglês
 │   ├── quiz.ts                # Lógica do quiz

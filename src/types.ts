@@ -30,6 +30,24 @@ export type PokemonDetail = {
   abilities: PokemonAbility[]
   stats: { base_stat: number; effort?: number; stat: { name: string } }[]
   species: { name: string; url: string }
+  moves: {
+    move: { name: string; url: string }
+    version_group_details: {
+      level_learned_at: number
+      move_learn_method: { name: string }
+      version_group: { name: string }
+    }[]
+  }[]
+}
+
+export type PokemonMoveDetail = {
+  id: number
+  name: string
+  accuracy: number | null
+  power: number | null
+  pp: number | null
+  type: { name: string }
+  damage_class: { name: string }
 }
 
 export type SpeciesDetail = {
