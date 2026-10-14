@@ -36,23 +36,11 @@ npm test
 
 Os arquivos finais ficam na pasta `dist/`. Para usar o PWA instalado em dispositivos, publique `dist/` em um serviço de hospedagem com HTTPS, por exemplo Vercel, Netlify ou GitHub Pages (ajuste `base` no Vite se publicar em subpasta).
 
-## Assistente por IA na Vercel
-
-O assistente chama `api/assistant.ts`, uma função serverless que encaminha perguntas à API da OpenAI. A chave não é enviada ao navegador:
-
-1. Publique o projeto na Vercel e configure `OPENAI_API_KEY` em **Project Settings → Environment Variables**.
-2. Opcionalmente, defina `OPENAI_MODEL`; o padrão é `gpt-4o-mini`.
-3. Faça um novo deploy para carregar as variáveis.
-
-Para executar localmente com a função, instale/execute a CLI da Vercel (`npx vercel dev`) e configure `OPENAI_API_KEY` no ambiente ou copie `.env.example` para `.env.local` e preencha a chave nova. `.env.local` é ignorado pelo Git. `npm run dev` inicia somente o Vite e não hospeda a função serverless. Nunca adicione chaves reais ao `.env.example`, ao código ou a variáveis `VITE_*`.
-
-O endpoint aceita apenas POST, limita tamanho/pergunta/histórico e valida os dados estruturados de Pokémon antes de encaminhá-los. Ainda assim, a função é pública e o provedor pode cobrar pelas chamadas; configure cotas e monitoramento no projeto OpenAI/Vercel antes de disponibilizar amplamente.
-
 ## Publicar no GitHub e Vercel
 
-O repositório inclui um fluxo GitHub Actions que executa `npm ci`, `npm test` e `npm run build` em cada push e pull request. O `.gitignore` exclui dependências, arquivos de build, configuração local da Vercel e variáveis de ambiente locais; `.env.example` contém apenas nomes de variáveis sem credenciais.
+O repositório inclui um fluxo GitHub Actions que executa `npm ci`, `npm test` e `npm run build` em cada push e pull request. O `.gitignore` exclui dependências, arquivos de build, configuração local da Vercel e variáveis de ambiente locais.
 
-Para conectar a Vercel, publique este projeto em um repositório GitHub e importe-o na Vercel. O framework pode ser detectado como Vite; confirme o comando de build `npm run build` e a pasta de saída `dist`. Configure `OPENAI_API_KEY` em **Project Settings → Environment Variables** na Vercel, não no repositório.
+Para conectar a Vercel, publique este projeto em um repositório GitHub e importe-o na Vercel. O framework pode ser detectado como Vite; confirme o comando de build `npm run build` e a pasta de saída `dist`.
 
 ## Instalar como aplicativo
 
@@ -77,7 +65,6 @@ O modo de instalação depende do navegador e da hospedagem. Em desenvolvimento 
 - Montador de equipes de até seis Pokémon, salvo localmente, com resumo de fraquezas, resistências, imunidades e cobertura ofensiva por STAB.
 - Busca de Pokémon por nome/número para adicionar à equipe diretamente no montador ou na ficha; backup JSON validado para exportar/importar, além de cartão PNG compartilhável ou baixável.
 - Quiz de cinco perguntas verificáveis sobre tipos e atributos-base, com feedback imediato, pontuação, recordes e conquistas integradas à jornada.
-- Assistente por IA, integrado por uma Vercel Function e com chave OpenAI somente no servidor; usa dados estruturados do perfil e da equipe carregada e sinaliza quando eles não bastam.
 - Pokémon do dia escolhido de forma estável pela data local, com descrição e acesso à ficha.
 - Filtro por habilidade e tipo.
 - Preferências de tema claro/escuro e idioma português/inglês, com opção de seguir o dispositivo.
@@ -98,7 +85,6 @@ O modo de instalação depende do navegador e da hospedagem. Em desenvolvimento 
 - O montador de equipes também salva apenas neste navegador; sua análise considera a tabela padrão de tipos da Geração VI em diante e não substitui uma análise de golpes, habilidades ou formato de batalha.
 - Backups de equipes usam o formato versionado Poképedia Explorer e aceitam somente Pokémon válidos da PokéAPI; a imagem compartilhável é renderizada no navegador e requer acesso às imagens oficiais da PokéAPI.
 - O quiz gera perguntas apenas com dados estruturados de tipos e atributos-base da PokéAPI; não afirma fatos editoriais nem usa perguntas de curiosidades sem fonte.
-- O assistente depende de implantação na Vercel e de uma chave OpenAI configurada como variável de ambiente do servidor. Nunca use um prefixo `VITE_` nessa chave. Para desenvolvimento local com a função, use `npx vercel dev` e configure `OPENAI_API_KEY` no ambiente; `OPENAI_MODEL` é opcional (padrão `gpt-4o-mini`). As respostas são geradas por IA, podem conter erros e não substituem regras específicas de jogos.
 - Os perfis consultados anteriormente continuam no histórico existente; tipos, gerações e comparações são contabilizados localmente enquanto o app os registra e não são sincronizados com outros dispositivos.
 - O cache offline ajuda com arquivos e respostas já acessadas, mas a primeira visita exige internet. Não é uma enciclopédia totalmente offline.
 - O projeto é de fã, não oficial, e não é afiliado à Nintendo, Game Freak ou The Pokémon Company.
@@ -110,12 +96,7 @@ pokemon-explorer/
 ├── public/
 │   ├── pwa-192.svg
 │   └── pwa-512.svg
-├── api/
-│   ├── assistant.ts
-│   └── assistant.test.ts
 ├── src/
-│   ├── AssistantPanel.tsx
-│   ├── assistant.ts
 │   ├── api.ts
 │   ├── i18n.ts
 │   ├── typeEffectiveness.ts

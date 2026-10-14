@@ -34,10 +34,8 @@ import type { QuizQuestion } from "./quiz";
 import { createTeamBackup, parseTeamBackup } from "./teamBackup";
 import { createTeamShareImage } from "./teamShareImage";
 import { filterTeamCandidates } from "./teamSelection";
-import { AssistantPanel } from "./AssistantPanel";
-import type { AssistantPokemon } from "./assistant";
 
-type Tab = "dex" | "journey" | "favorites" | "calculator" | "team" | "quiz" | "assistant";
+type Tab = "dex" | "journey" | "favorites" | "calculator" | "team" | "quiz";
 type LocalePreference = "device" | "pt-BR" | "en";
 type ThemePreference = "device" | "light" | "dark";
 type JourneyMetrics = {
@@ -401,24 +399,6 @@ function App() {
       }),
     [teamNames, teamDetails],
   );
-  const assistantPokemon = useMemo<AssistantPokemon[]>(() => {
-    const unique = new Map<string, PokemonDetail>();
-    [...teamMembers, ...(selected ? [selected] : [])].forEach((pokemon) => {
-      if (!unique.has(pokemon.name)) unique.set(pokemon.name, pokemon);
-    });
-    return [...unique.values()].slice(0, 6).map((pokemon) => ({
-      name: pokemon.name,
-      number: pokemon.id,
-      types: pokemon.types.map((item) => item.type.name),
-      abilities: pokemon.abilities.map((item) => item.ability.name),
-      stats: pokemon.stats.map((item) => ({
-        name: item.stat.name,
-        value: item.base_stat,
-      })),
-      heightMeters: pokemon.height / 10,
-      weightKg: pokemon.weight / 10,
-    }));
-  }, [teamMembers, selected]);
   const teamAnalysis = useMemo(() => analyzeTeam(teamMembers), [teamMembers]);
   const filteredTeamCatalog = useMemo(() => {
     return filterTeamCandidates(teamCatalog, teamNames, teamSearch);
@@ -602,7 +582,7 @@ function App() {
   }, [tab, reloadKey]);
 
   useEffect(() => {
-    if (tab !== "team" && tab !== "assistant") return;
+    if (tab !== "team") return;
     if (teamNames.length === 0) {
       setTeamDetails([]);
       setTeamDetailsLoading(false);
@@ -1384,13 +1364,6 @@ function App() {
           >
             ❖ <span>{copy(locale, "Quiz Pokémon", "Pokémon quiz")}</span>
           </button>
-          <button
-            aria-pressed={tab === "assistant"}
-            className={tab === "assistant" ? "active" : ""}
-            onClick={() => setTab("assistant")}
-          >
-            ✧ <span>{copy(locale, "Assistente Pokémon", "Pokémon assistant")}</span>
-          </button>
         </nav>
 
         {error && (
@@ -1532,12 +1505,6 @@ function App() {
               </div>
             )}
           </section>
-        ) : tab === "assistant" ? (
-          <AssistantPanel
-            locale={locale}
-            pokemon={assistantPokemon}
-            contextLoading={teamDetailsLoading && teamNames.length > 0}
-          />
         ) : tab === "quiz" ? (
           <section className="quiz-panel" aria-labelledby="quiz-title">
             <div className="journey-header quiz-header">
